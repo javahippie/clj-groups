@@ -1,6 +1,6 @@
-(ns clj-groups.core-test
+(ns clj-groups.channel-test
   (:require [clojure.test :refer :all]
-            [clj-groups.core :refer :all]))
+            [clj-groups.channel :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."
