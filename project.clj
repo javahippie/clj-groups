@@ -1,6 +1,6 @@
 (defproject clj-groups "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
-  :min-lein-version "2.0.0"
+  :min-lein-version "2.7.1"
   :source-paths ["src/clojure"]
   :java-source-paths ["src/java"]
   :javac-options ["-target" "1.8" "-source" "1.8"]
