@@ -20,7 +20,8 @@ It is possible to create multiple channels, which are identified by keywords. As
    :block (fn block [] (println "Block")) 
    :unblock (fn unblock [] (println "Unblock"))})
    
-(clj-groups.channel/connect! :channel-id callbacks)
+(clj-groups.channel/connect! :channel-id 
+						  	 callbacks)
 ```
 This will create a channel which is stored in an atom inside the clj-channel namespace. It can be accessed in further operations via the given identifier.
 
@@ -28,7 +29,9 @@ This will create a channel which is stored in an atom inside the clj-channel nam
 One of these operations is sending messages:
 
 ```clojure
-(clj-groups.channel/send-message! :channel-id {:target nil :message "This is your message"})
+(clj-groups.channel/send-message! :channel-id 
+								  {:target nil 
+								   :message "This is your message"})
 ```
 This will propagate the message to the participiants of the cluster 'channel-id'. It will be processed inside the `receive` callback.
 
