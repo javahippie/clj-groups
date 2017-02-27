@@ -1,41 +1,19 @@
 (ns clj-groups.channel
-  (:gen-class))
+  (:require [clj-groups.receiver :as receiver]))
 
 (def channel (atom {}))
-
-(defn reify-test []
-  (reify org.jgroups.Receiver
-    (^void receive [this 
-                    ^org.jgroups.Message msg]
-      (println msg))
-    (getState [this
-                     output]
-      (println output))
-    (setState [this
-               input]
-      (println input))
-    (viewAccepted [this
-                   view]
-      (println view))
-    (suspect [this
-              mbr]
-      (println mbr))
-    (block [this]
-      (println "block"))
-    (unblock [this]
-      (println "unblock"))))
 
 (defn- connect!
   "Joins to the specified cluster"
   [channel identifier callback]
-  (.setReceiver channel (reify-test))
+  (.setReceiver channel callback)
   (.connect channel identifier))
 
 (defn setup! 
   "Creates an instance of a channel and connects it via the given identifier. Uses default protocol settings" 
-  [identifier callback]
+  [identifier callbacks]
   (reset! channel (org.jgroups.JChannel.))
-  (connect! @channel identifier callback))
+  (connect! @channel identifier (receiver/receiver callbacks)))
 
 (defn setup-with-settings!
   "Creates an instance of a channel and connects it via the given identifier. Uses the passed settings"
@@ -56,3 +34,4 @@
   (.close @channel)
   (reset! channel {}))
 
+ 
