@@ -1,5 +1,5 @@
 (defproject clj-groups "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
+  :description "Clojure wrapper for JGroups 4.0.0"
   :min-lein-version "2.7.1"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"

@@ -19,14 +19,15 @@
   "Creates an instance of a channel and connects it via the given identifier. Uses the passed settings"
   [identifier settings]
   (reset! channel (org.jgroups.JChannel. settings))
-  (instantiate! @channel identifier))
+  (instantiate! (identifier @channel) identifier))
 
 (defn send-message! 
   "Sends a message into the channel"
-  [{^org.jgroups.Address target :target
+  [identifier
+   {^org.jgroups.Address target :target
     ^java.lang.Object payload :message}]   
-  (.send @channel (org.jgroups.Message. target 
-                                        payload)))
+  (.send (identifier @channel) (org.jgroups.Message. target 
+                                           payload)))
  
 (defn close!
   "Closes the existing JChannel"
@@ -34,4 +35,7 @@
   (.close (identifier @channel))
   (swap! channel dissoc identifier))
 
- 
+(defn open-channels
+  "Retrieves the keywords for the open channels"
+  []
+  (keys @channel)) 
