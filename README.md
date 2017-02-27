@@ -12,13 +12,20 @@ It is possible to create multiple channels, which are identified by keywords. As
 
 ```clojure
 (def callbacks
-  {:receive (fn receive [msg] (println msg) )
-   :get-state (fn get-state [output] (println output)
-   :set-state (fn set-state [input] (println input)
-   :view-accepted (fn view-accepted [view] (println view))
-   :suspect (fn suspect [mbr] (println mbr))
-   :block (fn block [] (println "Block")) 
-   :unblock (fn unblock [] (println "Unblock"))})
+  {:receive 
+  	(fn receive [msg] (println msg) )
+   :get-state 
+   	(fn get-state [output] (println output)
+   :set-state 
+   	(fn set-state [input] (println input)
+   :view-accepted 
+   	(fn view-accepted [view] (println view))
+   :suspect 
+   	(fn suspect [mbr] (println mbr))
+   :block 
+   	(fn block [] (println "Block")) 
+   :unblock 
+   	(fn unblock [] (println "Unblock"))})
    
 (clj-groups.channel/connect! :channel-id 
 						  	 callbacks)
