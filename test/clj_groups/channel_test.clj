@@ -13,11 +13,8 @@
     (is 
      (not 
       (nil? 
-       (setup! "test-case" 
+       (connect! :test-case 
                callbacks))))
     (is 
      (empty? 
-         (teardown!)))))
-
-
-
+         (close! :test-case)))))

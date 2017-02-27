@@ -3,23 +3,23 @@
 
 (def channel (atom {}))
 
-(defn- connect!
+(defn- instantiate!
   "Joins to the specified cluster"
   [channel identifier callback]
   (.setReceiver channel callback)
   (.connect channel identifier))
 
-(defn setup! 
+(defn connect! 
   "Creates an instance of a channel and connects it via the given identifier. Uses default protocol settings" 
   [identifier callbacks]
-  (reset! channel (org.jgroups.JChannel.))
-  (connect! @channel identifier (receiver/receiver callbacks)))
+  (swap! channel conj {identifier (org.jgroups.JChannel.)})
+  (instantiate! (identifier @channel) (name identifier) (receiver/build callbacks)))
 
-(defn setup-with-settings!
+(defn connect-with-settings!
   "Creates an instance of a channel and connects it via the given identifier. Uses the passed settings"
   [identifier settings]
   (reset! channel (org.jgroups.JChannel. settings))
-  (connect! @channel identifier))
+  (instantiate! @channel identifier))
 
 (defn send-message! 
   "Sends a message into the channel"
@@ -28,10 +28,10 @@
   (.send @channel (org.jgroups.Message. target 
                                         payload)))
  
-(defn teardown!
+(defn close!
   "Closes the existing JChannel"
-  []
-  (.close @channel)
-  (reset! channel {}))
+  [identifier]
+  (.close (identifier @channel))
+  (swap! channel dissoc identifier))
 
  
