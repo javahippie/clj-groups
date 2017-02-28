@@ -1,36 +1,45 @@
 (ns clj-groups.receiver)
 
-(defn build [{receive :receive 
-              receive-batch :receive-batch
+(defn build [{receive-one :receive 
               get-state :get-state 
               set-state :set-state 
               view-accepted :view-accepted 
               suspect :suspect 
               block :block 
               unblock :unblock}]
+
   (reify org.jgroups.Receiver
     (^void receive [this 
                     ^org.jgroups.Message msg]
-      (receive msg))
-
-    (^void receive [this
-                    ^org.jgroups.util.MessageBatch msg]
-      (receive-batch msg))
+      (if (not (nil? receive-one))
+        (receive-one msg)))
 
     (getState [this
-                     output]
-      (get-state))
+               output]
+      (if (not (nil? get-state))
+        (get-state output)))
+
     (setState [this
                input]
-      (set-state))
+      (if (not (nil? set-state))
+        (set-state input)))
+
+
     (viewAccepted [this
                    view]
-      (view-accepted view))
+      (if (not (nil? view-accepted))
+        (view-accepted view)))
+
     (suspect [this
               mbr]
-      (suspect mbr))
+      (if (not (nil? suspect))
+        (suspect mbr)))
+
     (block [this]
-      (block))
+      (if (not (nil? block))
+        (block)))
+
     (unblock [this]
-      (unblock))))
+      (if (not (nil? unblock))
+        (unblock)))))
 

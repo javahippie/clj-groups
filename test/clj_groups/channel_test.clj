@@ -21,13 +21,13 @@
                callbacks))))
 
   (is
-   (.contains (open-channels) :test-case-1))
+   (.contains (opened-channels) :test-case-1))
 
   (close! :test-case-1)
 
   (is
    (not
-    (.contains (open-channels) :test-case-1))))
+    (.contains (opened-channels) :test-case-1))))
 
 (deftest multi-channel-creation
 
@@ -38,7 +38,7 @@
                callbacks))))
   
   (is
-   (.contains (open-channels) :test-case-1))
+   (.contains (opened-channels) :test-case-1))
 
   (is
    (not
@@ -47,16 +47,16 @@
                callbacks))))
 
   (is
-   (.contains (open-channels) :test-case-2))
+   (.contains (opened-channels) :test-case-2))
     (close! :test-case-1)
 
 
   (is 
    (not
-    (.contains (open-channels) :test-case-1)))
+    (.contains (opened-channels) :test-case-1)))
 
   (close! :test-case-2)
 
   (is
    (not
-    (.contains (open-channels) :test-case-1))))
+    (.contains (opened-channels) :test-case-1))))

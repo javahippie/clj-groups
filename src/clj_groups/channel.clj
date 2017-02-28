@@ -35,7 +35,7 @@
   (.close (identifier @channel))
   (swap! channel dissoc identifier))
 
-(defn open-channels
+(defn opened-channels
   "Retrieves the keywords for the open channels"
   []
   (keys @channel)) 
