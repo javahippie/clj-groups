@@ -11,21 +11,27 @@ For now, you can create channels which will cluster automatically with other cha
 It is possible to create multiple channels, which are identified by keywords. As JGroups works with callbacks, you need to provide these callback functions upon creation of the channel in a map: 
 
 ```clojure
+(clj-groups.channel/connect! :channel-id
+							 {:receive (fn [msg] (println msg)}
+```
+You only need to specify the callbacks that you really want to use. Below is an example with all possible callbacks specified.
+
+```clojure
 (def callbacks
   {:receive 
-  	(fn receive [msg] (println msg) )
+  	(fn [msg] (println msg) )
    :get-state 
-   	(fn get-state [output] (println output)
+   	(fn [output] (println output)
    :set-state 
-   	(fn set-state [input] (println input)
+   	(fn [input] (println input)
    :view-accepted 
-   	(fn view-accepted [view] (println view))
+   	(fn [view] (println view))
    :suspect 
-   	(fn suspect [mbr] (println mbr))
+   	(fn [mbr] (println mbr))
    :block 
-   	(fn block [] (println "Block")) 
+   	(fn [] (println "Block")) 
    :unblock 
-   	(fn unblock [] (println "Unblock"))})
+   	(fn [] (println "Unblock"))})
    
 (clj-groups.channel/connect! :channel-id 
 						  	 callbacks)
@@ -50,6 +56,15 @@ Channels can also be closed, to detach your application from the cluster.
 ```
 
 This will close the channel and remove it from the state. It is no longer accessible.
+
+### List channels
+It is possible to open multiple channels, which will be stored and can be accessed via their identifiers. To check which channels exist, the `opened-channels` function is available:
+
+```clojure
+(clj-groups.channel/opened-channels)
+
+> {:channel-1 :channel-2}
+```
 
 
 ## License
