@@ -15,11 +15,11 @@
   (swap! channel conj {identifier (org.jgroups.JChannel.)})
   (instantiate! (identifier @channel) (name identifier) (receiver/build callbacks)))
 
-(defn connect-with-settings!
+(defn connect-with-settings-file!
   "Creates an instance of a channel and connects it via the given identifier. Uses the passed settings"
-  [identifier settings]
-  (reset! channel (org.jgroups.JChannel. settings))
-  (instantiate! (identifier @channel) identifier))
+  [identifier callbacks settings]
+  (swap! channel conj {identifier (org.jgroups.JChannel. settings)})
+  (instantiate! (identifier @channel) (name identifier) (receiver/build callbacks)))
 
 (defn send-message! 
   "Sends a message into the channel"
