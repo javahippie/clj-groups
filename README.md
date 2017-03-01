@@ -46,11 +46,11 @@ This will create a channel which is returned by the function. It can be accessed
 One of these operations is sending messages:
 
 ```clojure
-(let [chnl (channel/connect! "test-channel" 
-                             callbacks)]
-    (channel/send-message! chnl 
-                           {:target nil
-                            :message "Heyoo"}))
+(let [chnl (clj-groups.channel/connect! "test-channel" 
+                                        callbacks)]
+    (clj-groups.channel/send-message! chnl 
+                                      {:target nil
+                                       :message "Heyoo"}))
 ```
 This will propagate the message to the participiants of the cluster 'test-channel'. It will be processed inside the `receive` callback.
 
