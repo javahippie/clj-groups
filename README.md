@@ -15,7 +15,7 @@ For now, you can create channels which will cluster automatically with other cha
 It is possible to create multiple channels, which are identified by keywords. As JGroups works with callbacks, you need to provide these callback functions upon creation of the channel in a map: 
 
 ```clojure
-(clj-groups.channel/connect! :channel-id
+(clj-groups.channel/connect! "channel-id"
 							 {:receive (fn [msg] (println msg)}
 ```
 You only need to specify the callbacks that you really want to use. Below is an example with all possible callbacks specified.
@@ -37,38 +37,32 @@ You only need to specify the callbacks that you really want to use. Below is an 
    :unblock 
    	(fn [] (println "Unblock"))})
    
-(clj-groups.channel/connect! :channel-id 
+(clj-groups.channel/connect! "channel-id"
 						  	 callbacks)
 ```
-This will create a channel which is stored in an atom inside the clj-channel namespace. It can be accessed in further operations via the given identifier.
+This will create a channel which is returned by the function. It can be accessed in further operations via the given identifier.
 
 ### Send messages
 One of these operations is sending messages:
 
 ```clojure
-(clj-groups.channel/send-message! :channel-id 
-								  {:target  nil 
-								   :message "This is your message"})
+(let [chnl (channel/connect! "test-channel" 
+                             callbacks)]
+    (channel/send-message! chnl 
+                           {:target nil
+                            :message "Heyoo"}))
 ```
-This will propagate the message to the participiants of the cluster 'channel-id'. It will be processed inside the `receive` callback.
+This will propagate the message to the participiants of the cluster 'test-channel'. It will be processed inside the `receive` callback.
 
 ### Close channels
 Channels can also be closed, to detach your application from the cluster. 
 
 ```clojure
-(clj-groups.channel/close! :channel-id)
+(clj-groups.channel/close! channel)
 ```
 
-This will close the channel and remove it from the state. It is no longer accessible.
+This will close the channel.
 
-### List channels
-It is possible to open multiple channels, which will be stored and can be accessed via their identifiers. To check which channels exist, the `opened-channels` function is available:
-
-```clojure
-(clj-groups.channel/opened-channels)
-
-> {:channel-1 :channel-2}
-```
 
 
 ## License
