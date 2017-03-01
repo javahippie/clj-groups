@@ -43,7 +43,7 @@ One of these operations is sending messages:
 
 ```clojure
 (clj-groups.channel/send-message! :channel-id 
-								  {:target nil 
+								  {:target  nil 
 								   :message "This is your message"})
 ```
 This will propagate the message to the participiants of the cluster 'channel-id'. It will be processed inside the `receive` callback.
