@@ -1,5 +1,7 @@
 # clj-groups
 
+[![Build Status](https://travis-ci.org/javahippie/clj-groups.svg?branch=master)](https://travis-ci.org/javahippie/clj-groups)
+
 This Clojure library should serve as an idiomatic wrapper around the great JGroups 4.0.0 Java library from Bela Ban. As a feature-complete wrapper is a challenging project and time is short on our hands, this is not complete, yet.
 
 ## Shortcomings
