@@ -5,4 +5,4 @@
 (task-options!
  pom {:project 'clj-groups
       :version "0.1.0-SNAPSHOT"}
- jar {})
+ jar {:manifest {"a" "b"}})

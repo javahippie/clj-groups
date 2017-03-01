@@ -13,16 +13,16 @@
 
 
 (deftest single-channel-creation
-  
+  (let [channel (connect! "test-case-1"
+                          callbacks)])
+ 
   (is 
    (not 
     (nil? 
-     (connect! :test-case-1 
+     (connect! "test-case-1" 
                callbacks))))
 
-  (is
-   (.contains (opened-channels) :test-case-1))
-
+  
   (close! :test-case-1)
 
   (is
