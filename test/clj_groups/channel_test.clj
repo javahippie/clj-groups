@@ -2,61 +2,25 @@
   (:require [clojure.test :refer :all]
             [clj-groups.channel :refer :all]))
 
-(def callbacks
-  {:receive (fn receive [msg] (println (str "Message Accepted: " msg)) )
-   :get-state nil
-   :set-state nil
-   :view-accepted (fn view-accepted [view] (println (str "View Accepted: " view)))
-   :suspect nil
-   :block (fn block [] (println "Block")) 
-   :unblock (fn unblock [] (println "Unblock"))})
-
-
 (deftest single-channel-creation
-  (let [channel (connect! "test-case-1"
-                          callbacks)])
- 
-  (is 
-   (not 
-    (nil? 
-     (connect! "test-case-1" 
-               callbacks))))
-
-  
-  (close! :test-case-1)
-
-  (is
-   (not
-    (.contains (opened-channels) :test-case-1))))
+  (let [channel-1 (connect! "test-case-1"
+                            {:receive (fn [msg] (println "test-case-1"))})]
+    
+    (is (.isOpen channel-1))
+    
+    (close! channel-1)
+    (is (.isClosed channel-1))))
 
 (deftest multi-channel-creation
+  (let [channel-1 (connect! "test-case-1"
+                            {:receive (fn [msg] (println "test-case-1"))})
+        channel-2 (connect! "test-case-2"
+                            {:receive (fn [msg] (println "test-case-2"))})]
+    (is (.isOpen channel-1))
+    (is (.isOpen channel-2))
 
-  (is 
-   (not 
-    (nil? 
-     (connect! :test-case-1
-               callbacks))))
-  
-  (is
-   (.contains (opened-channels) :test-case-1))
+    (close! channel-1)
+    (close! channel-2)
 
-  (is
-   (not
-    (nil?
-     (connect! :test-case-2
-               callbacks))))
-
-  (is
-   (.contains (opened-channels) :test-case-2))
-    (close! :test-case-1)
-
-
-  (is 
-   (not
-    (.contains (opened-channels) :test-case-1)))
-
-  (close! :test-case-2)
-
-  (is
-   (not
-    (.contains (opened-channels) :test-case-1))))
+    (is (.isClosed channel-1))
+    (is (.isClosed channel-2))))
