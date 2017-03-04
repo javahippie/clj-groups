@@ -17,11 +17,19 @@
                (receiver/build callbacks)))
 
 (defn connect-with-settings-file!
-  "Creates an instance of a channel and connects it via the given identifier. Uses the passed settings"
+  "Creates an instance of a channel and connects it via the given identifier. Uses the passed settings file"
   [identifier callbacks settings]
-  (instantiate (org.jgroups.JChannel. settings) 
+  (instantiate (org.jgroups.JChannel. ^java.lang.String settings) 
                identifier 
                (receiver/build callbacks)))
+
+(defn connect-with-protocols!
+  "Creates an instance of a channel and connects it via the given identifier. Uses the passed protocol stack"
+  [identifier callbacks protocols]
+  (instantiate (org.jgroups.JChannel. protocols)
+               identifier
+               (receiver/build callbacks)))
+
 
 (defn send-message! 
   "Sends a message into the channel"
