@@ -29,7 +29,7 @@
 (deftest channel-creation-programmatically
   (let [channel-1 (connect-with-protocols! "test-case-1"
                                           {:receive (fn [msg] (println "test-case-1"))}
-                                          [(udp)
+                                          [(udp {:bind-addr "127.0.0.1"})
                                            (ping)
                                            (merge-3)
                                            (fd-sock)
