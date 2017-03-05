@@ -1,15 +1,80 @@
 (ns clj-groups.protocols)
 
+(defn- apply-parameters!
+  "Calls the 'setField' method for each key value pair provided"
+  [protocol parameters]
+  (map #(.setValue protocol 
+                   (name (key %)) 
+                   (val %))
+       parameters)
+  protocol)
+
 (defn udp
+  "Returns an instance of the UDP protocol"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.UDP.) parameters))
+
+(defn ping
+  "Returns an instance of the PING protocol"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.PING.) parameters))
+
+(defn merge-3
+  "Returns an instance of the MERGE3 protocol"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.MERGE3.) parameters))
+
+(defn fd-sock
   ""
-  [[tos :tos
-    mcast-group-addr :mcast-group-addr
-    mcast-port :mcast-port
-    ip-mcast :ip-mcast
-    ip-ttl :ip-ttl
-    mcast-send-buffer-size :mcast-send-buffer-size
-    mcast-recv-buffer-size :mcast-recv-buffer-size
-    ucast-send-buffer-size :ucast-send-buffer-size
-    ucase-recv-buffer-size :ucast-recv-buffer-size
-    disable-loopback :disable-loopback
-    suppress-time-out-of-buffer-space :suppress-time-out-of-buffer-space]])
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FD_SOCK.) parameters))
+
+(defn fd-all
+  ""
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FD_ALL.) parameters))
+
+(defn verify-suspect
+  ""
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.VERIFY_SUSPECT.) parameters))
+
+(defn barrier
+  ""
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.BARRIER.) parameters))
+
+(defn nakack-2
+  ""
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.pbcast.NAKACK2.) parameters))
+
+(defn unicast-3
+  ""
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.UNICAST3.) parameters))
+
+(defn stable
+  ""
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.pbcast.STABLE.) parameters))
+
+(defn gms
+  ""
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.pbcast.GMS.) parameters))
+
+(defn ufc
+  ""
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.UFC.) parameters))
+
+(defn mfc
+  ""
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.MFC.) parameters))
+
+(defn frag-2
+  ""
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FRAG2.) parameters))
