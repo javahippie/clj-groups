@@ -10,37 +10,37 @@
   protocol)
 
 (defn udp
-  "Returns an instance of the UDP protocol"
+  "IP multicast transport based on UDP."
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.UDP.) parameters))
 
 (defn ping
-  "Returns an instance of the PING protocol"
+  "Retrieves the initial membership by mcasting a discovery request."
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.PING.) parameters))
 
 (defn merge-3
-  "Returns an instance of the MERGE3 protocol"
+  "Discovers subgroups, e.g. existing due to network partition."
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.MERGE3.) parameters))
 
 (defn fd-sock
-  ""
+  "Failure dection protocol, based on sockets."
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.FD_SOCK.) parameters))
 
 (defn fd-all
-  ""
+  "Failure detection based on simple heartbeat."
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.FD_ALL.) parameters))
 
 (defn verify-suspect
-  ""
+  "Catches SUSPECT events, traveling up the stack."
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.VERIFY_SUSPECT.) parameters))
 
 (defn barrier
-  ""
+  "Blocks all multicast threads when closed."
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.BARRIER.) parameters))
 
