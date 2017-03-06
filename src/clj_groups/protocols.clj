@@ -7,74 +7,268 @@
                    (name (key %)) 
                    (val %))
        parameters)
-  protocol)
+  protocol) ;; return the modified protocol
 
-(defn udp
-  "IP multicast transport based on UDP."
+(defn abp
+  "Alternating Bit Protocol, for reliable p2p unicasts. Experimental!"
   [& [parameters]]
-  (apply-parameters! (org.jgroups.protocols.UDP.) parameters))
+  (apply-parameters! (org.jgroups.protocols.ABP.) parameters))
 
-(defn ping
-  "Retrieves the initial membership by mcasting a discovery request."
+(defn asym-encrypt
+  "Asymmetric encryption protocol. The secret key for encrypting and decrypting messages is fetched from a key server"
   [& [parameters]]
-  (apply-parameters! (org.jgroups.protocols.PING.) parameters))
+  (apply-parameters! (org.jgroups.protocols.ASYM_ENCRYPT.) parameters))
 
-(defn merge-3
-  "Discovers subgroups, e.g. existing due to network partition."
+(defn auth
+  "Provided authentication of joiners to prevent unauthorized joining to the cluster."
   [& [parameters]]
-  (apply-parameters! (org.jgroups.protocols.MERGE3.) parameters))
-
-(defn fd-sock
-  "Failure dection protocol, based on sockets."
-  [& [parameters]]
-  (apply-parameters! (org.jgroups.protocols.FD_SOCK.) parameters))
-
-(defn fd-all
-  "Failure detection based on simple heartbeat."
-  [& [parameters]]
-  (apply-parameters! (org.jgroups.protocols.FD_ALL.) parameters))
-
-(defn verify-suspect
-  "Catches SUSPECT events, traveling up the stack."
-  [& [parameters]]
-  (apply-parameters! (org.jgroups.protocols.VERIFY_SUSPECT.) parameters))
+  (apply-parameters! (org.jgroups.protocols.AUTH.) parameters))
 
 (defn barrier
   "Blocks all multicast threads when closed."
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.BARRIER.) parameters))
 
-(defn nakack-2
-  ""
+(defn bping
+  "Broadcast ping."
   [& [parameters]]
-  (apply-parameters! (org.jgroups.protocols.pbcast.NAKACK2.) parameters))
+  (apply-parameters! (org.jgroups.protocols.BPING.) parameters))
 
-(defn unicast-3
-  ""
+(defn central-executor
+  "Central executor service"
   [& [parameters]]
-  (apply-parameters! (org.jgroups.protocols.UNICAST3.) parameters))
+  (apply-parameters! (org.jgroups.protocols.CENTRAL_EXECUTOR.) parameters))
 
-(defn stable
-  ""
+(defn central-lock
+  "Locking protocol, which acquires locks by contacting the coordinator."
   [& [parameters]]
-  (apply-parameters! (org.jgroups.protocols.pbcast.STABLE.) parameters))
+  (apply-parameters! (org.jgroups.protocols.CENTRAL_LOCK.) parameters))
+
+(defn compress
+  "Compresses messages to be sent, uncompresses received messages"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.COMPRESS.) parameters))
+
+(defn counter
+  "Protocol which provides a distributed counter"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.COUNTER.) parameters))
+
+(defn daisychain
+  "Implementation of daisychaining, sends messages to the next neighbor, and so on..."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.DAISYCHAIN.) parameters))
+
+(defn delay
+  "Delays in- and outgoing messages by a random number"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.DELAY.) parameters))
+
+(defn delivery-time
+  "Protocol measuring delivery time"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.DELIVERY_TIME.) parameters))
+
+(defn discard
+  "Discards up or down messages based on percentage"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.DISCARD.) parameters))
+
+(defn discard-payload
+  "Discards messages whose sequence number matches seqno 2 times"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.DISCARD_PAYLOAD.) parameters))
+
+(defn dupl
+  "Duplicates outgoing or incoming messages by copying them"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.DUPL.) parameters))
+
+(defn fd
+  "Failure detection based on simple heartbeat."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FD.) parameters))
+
+(defn fd-all
+  "Failure detection based on simple heartbeat."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FD_ALL.) parameters))
+
+(defn fd-all-2
+  "Failure detection based on simple heartbeat."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FD_ALL2.) parameters))
+
+(defn fd-host
+  "Failure detection protocol which detects crashes or hangs of entire hosts"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FD_HOST.) parameters))
+
+(defn fd-sock
+  "Failure dection protocol, based on sockets."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FD_SOCK.) parameters))
+
+(defn file-ping
+  "Simple discovery protocol which uses a file on a shared storage."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FILE_PING.) parameters))
+
+(defn fork
+  "Multiplexes messages to different forks in the stack"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FORK.) parameters))
+
+(defn forward-to-coord
+  "Forwards a message to the current coordinator"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FORWARD_TO_COORD.) parameters))
+
+(defn frag
+  "Fragments packages larger than FRAG_SIZE into smaller packets."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FRAG.) parameters))
+
+(defn frag-2
+  "Fragments packages larger than FRAG_SIZE into smaller packets."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FRAG2.) parameters))
+
+(defn frag-3
+  "Fragments packages larger than FRAG_SIZE into smaller packets."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.FRAG3.) parameters))
 
 (defn gms
   ""
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.pbcast.GMS.) parameters))
 
+(defn google-ping
+  "Discovery protocol for google cloud storage."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.GOOGLE_PING.) parameters))
+
+(defn hdrs
+  "Prints the headers of all received or sent messages"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.HDRS.) parameters))
+
+(defn jdbc-ping
+  "Discovery protocol using a jdbc connection to a shared database"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.JDBC_PING.) parameters))
+
+(defn make-batch
+  "Intercepts individual up messages and passes them up as batches."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.MAKE_BATCH.) parameters))
+
+(defn merge-3
+  "Discovers subgroups, e.g. existing due to network partition."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.MERGE3.) parameters))
+
+(defn mfc
+  "Simple flow control protocol based on a credit system."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.MFC.) parameters))
+
+(defn nakack-2
+  ""
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.pbcast.NAKACK2.) parameters))
+
+(defn naming
+  "Maintains mappings of addresses and their logical names"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.NAMING.) parameters))
+
+(defn mping
+  "Uses its own multicast socket to send and receive discovery requests"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.MPING.) parameters))
+
+(defn pdc
+  "Persistent discovery cache."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.PDC.) parameters))
+
+(defn perf
+  "Protocol measuring latency between stacks."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.PERF.) parameters))
+
+(defn ping
+  "Retrieves the initial membership by mcasting a discovery request."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.PING.) parameters))
+
+(defn rackspace-ping
+  "Discovery protocol based on Rackspace cloud storage."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.RACKSPACE_PING.) parameters))
+
+(defn rate-limiter
+  "Protocol which sends at most max_bytes in time_period milliseconds."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.RATE_LIMITER.) parameters))
+
+(defn relay
+  "Simple relaying protocol"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.RELAY.) parameters))
+
+(defn rsvp
+  "Implements synchronous acks for messages which have their rsvp flags set."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.RSVP.) parameters))
+
+(defn s3-ping
+  "Discovery protocol using Amazons S3 storage."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.S3_PING.) parameters))
+
+(defn sasl
+  "SASL protocol implements authentication."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.SASL.) parameters))
+
+(defn sequencer
+  "Implementation of total order protocol using a sequencer"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.SEQUENCER.) parameters))
+
+(defn stable
+  ""
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.pbcast.STABLE.) parameters))
+
+(defn unicast-3
+  ""
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.UNICAST3.) parameters))
+
+(defn udp
+  "IP multicast transport based on UDP."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.UDP.) parameters))
+
 (defn ufc
   ""
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.UFC.) parameters))
 
-(defn mfc
-  ""
+(defn verify-suspect
+  "Catches SUSPECT events, traveling up the stack."
   [& [parameters]]
-  (apply-parameters! (org.jgroups.protocols.MFC.) parameters))
+  (apply-parameters! (org.jgroups.protocols.VERIFY_SUSPECT.) parameters))
 
-(defn frag-2
-  ""
-  [& [parameters]]
-  (apply-parameters! (org.jgroups.protocols.FRAG2.) parameters))
+
+
+
+
+
+
+
+
