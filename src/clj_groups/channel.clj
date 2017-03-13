@@ -32,12 +32,14 @@
 
 
 (defn send-message! 
-  "Sends a message into the channel"
+  "Sends a message into the channel. Payload can be an object or a byte array"
   [channel
    {target :target
-    payload :message}]   
-  (.send  channel (org.jgroups.Message. target 
-                                        payload)))
+    payload :message}]
+  (if (nil? target)
+    (.send channel (org.jgroups.Message. payload))
+    (.send channel (org.jgroups.Message. target 
+                                         payload))))
  
 (defn close!
   "Closes the existing JChannel"
