@@ -34,7 +34,7 @@
 (defn send-message! 
   "Sends a message into the channel"
   [channel
-   {:target
+   {target :target
     payload :message}]   
   (.send  channel (org.jgroups.Message. target 
                                         payload)))
