@@ -114,6 +114,11 @@
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.FILE_PING.) parameters))
 
+(defn flush
+  "Forces group members to flush their pending messages."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.pbcast.FLUSH.) parameters))
+
 (defn fork
   "Multiplexes messages to different forks in the stack"
   [& [parameters]]
@@ -140,7 +145,7 @@
   (apply-parameters! (org.jgroups.protocols.FRAG3.) parameters))
 
 (defn gms
-  ""
+  "Group membership protocol"
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.pbcast.GMS.) parameters))
 
@@ -175,7 +180,7 @@
   (apply-parameters! (org.jgroups.protocols.MFC.) parameters))
 
 (defn nakack-2
-  ""
+  "Negative acknowledgement layer"
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.pbcast.NAKACK2.) parameters))
 
@@ -239,15 +244,106 @@
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.SEQUENCER.) parameters))
 
+(defn sequencer-2
+  "Implementation of total order protocol using a sequencer_uum"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.SEQUENCER2.) parameters))
+
+(defn shared-loopback
+  "Loopback transport shared by all channels within the same VM"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.SHARED_LOOPBACK.) parameters))
+
+(defn shared-loopback-ping
+  "Discovery protocol running over shared-loopback only"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.SHARED_LOOPBACK_PING.) parameters))
+
+(defn shuffle
+  "Reorders messages by buffering them and shuffling them after TIMEOUT ms"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.SHUFFLE.) parameters))
+
+(defn size
+  "Protocol which prints out the real message size"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.SIZE.) parameters))
+
+(defn sniff
+  "Protocol trying to print messages as strings"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.SNIFF.) parameters))
+
 (defn stable
-  ""
+  "Computes the broadcast messages that are stable"
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.pbcast.STABLE.) parameters))
 
-(defn unicast-3
-  ""
+(defn state
+  "Streams the state to the state requester"
   [& [parameters]]
-  (apply-parameters! (org.jgroups.protocols.UNICAST3.) parameters))
+  (apply-parameters! (org.jgroups.protocols.pbcast.STATE.) parameters))
+
+(defn state-sock
+  "Has the state provider create a server socket to which the state requester connects"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.pbcast.STATE_SOCK.) parameters))
+
+(defn state-transfer
+  "Protocol based on byte array transfer"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.pbcast.STATE_TRANSFER.) parameters))
+
+(defn stats
+  "Provides various stats"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.STATS.) parameters))
+
+(defn stomp
+  "Protocol which provides STOMP support"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.STOMP.) parameters))
+
+(defn swift-ping
+  "Discovery protocol based on Openstack Swift"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.SWIFT_PING.) parameters))
+
+(defn sym-encrypt
+  "Encrypts and decrypts communication by using a secret key shared by all cluster members"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.SYM_ENCRYPT.) parameters))
+
+(defn tcp
+  "TCP based protocol"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.TCP.) parameters))
+
+(defn tcp-gossip
+  "Retrieves the initial membership"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.TCPGOSSIP.) parameters))
+
+(defn tcp-ping
+  "Defines a static cluster membership"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.TCPPING.) parameters))
+
+(defn tcp-nio2
+  "Protocol using TCP for sending and retrieving messages. Uses nonblocking IO"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.TCP_NIO2.) parameters))
+
+(defn trace
+  "Trace."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.TRACE.) parameters))
+
+(defn tunnel
+  "Experimental replacement for UDP."
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.TUNNEL.) parameters))
+
 
 (defn udp
   "IP multicast transport based on UDP."
@@ -255,20 +351,17 @@
   (apply-parameters! (org.jgroups.protocols.UDP.) parameters))
 
 (defn ufc
-  ""
+  "Simple flow control protocol based on a credit system."
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.UFC.) parameters))
+
+(defn unicast-3
+  "Reliable unicast protocol using a combination of positive and negative acks"
+  [& [parameters]]
+  (apply-parameters! (org.jgroups.protocols.UNICAST3.) parameters))
+
 
 (defn verify-suspect
   "Catches SUSPECT events, traveling up the stack."
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.VERIFY_SUSPECT.) parameters))
-
-
-
-
-
-
-
-
-
