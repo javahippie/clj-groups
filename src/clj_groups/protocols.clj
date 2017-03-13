@@ -59,7 +59,7 @@
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.DAISYCHAIN.) parameters))
 
-(defn delay
+(defn delay-rnd
   "Delays in- and outgoing messages by a random number"
   [& [parameters]]
   (apply-parameters! (org.jgroups.protocols.DELAY.) parameters))

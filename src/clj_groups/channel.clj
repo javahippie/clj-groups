@@ -34,8 +34,8 @@
 (defn send-message! 
   "Sends a message into the channel"
   [channel
-   {^org.jgroups.Address target :target
-    ^java.lang.Object payload :message}]   
+   {:target
+    payload :message}]   
   (.send  channel (org.jgroups.Message. target 
                                         payload)))
  
